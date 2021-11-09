@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS + CSS Clock</title>
+  <link rel="shortcut icon" href="https://img.icons8.com/color/48/000000/clock--v3.png" type="image/x-icon">
+</head>
+<body>
+
+
+    <div class="clock">
+      <div class="clock-face">
+        <div class="hand hour-hand"></div>
+        <div class="hand min-hand"></div>
+        <div class="hand second-hand"></div>
+      </div>
+    </div>
+
+    <div class="attribution">
+      Challenge by <a href="https://www.javascript30.com" target="_blank">#Javascript30</a>. 
+      Coded by <a href="https://twitter.com/BoukikazM" target="_blank">Boukikaz Mouatez Billeh</a>.
+    </div>
+
+
+  <style>
+    html {
+      background: #018DED url(victor-martin-HU-RjTPM-9k-unsplash.jpg);
+      background-size: cover;
+      font-family: 'helvetica neue';
+      text-align: center;
+      font-size: 10px;
+    }
+
+    body {
+      margin: 0;
+      font-size: 2rem;
+      display: flex;
+      flex: 1;
+      min-height: 100vh;
+      align-items: center;
+    }
+
+    .clock {
+      width: 30rem;
+      height: 30rem;
+      border: 20px solid rgb(49, 49, 49);
+      border-radius: 50%;
+      margin: 50px auto;
+      position: relative;
+      padding: 2rem;
+      box-shadow:
+        0 0 0 4px rgba(0,0,0,0.1),
+        inset 0 0 0 3px #5c5c5c,
+        inset 0 0 10px black,
+        0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .clock-face {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform: translateY(-3px); /* account for the height of the clock hands */
+    }
+
+    .hand {
+      width: 50%;
+      height: 6px;
+      background: black;
+      position: absolute;
+      top: 50%;
+      border-radius: 15px 0 0 0;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: all 0.05s;
+      box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.1),
+        inset 0 0 0 3px #000000,
+        inset 0 0 10px rgb(255, 255, 255),
+        0 0 10px rgba(255, 255, 255, 0.2);
+      transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+    }
+
+      .attribution {
+      font-size: 11px; 
+      text-align: center; 
+      color: rgb(99, 99, 99);
+      position: absolute;
+      bottom: 1rem;
+      right: 39%;
+    }
+      .attribution a { 
+        color: white; 
+        text-decoration: none;
+      }
+
+      .attribution a:hover{
+        color: rgb(250, 242, 227);
+        text-decoration: underline;
+      }
+
+  </style>
+
+  <script>
+    const secondHand = document.querySelector('.second-hand');
+    const minsHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
+
+    function setDate(){
+      const now = new Date();
+
+      const seconds = now.getSeconds();
+      const secondsDegrees = ((seconds / 60)* 360) + 90;
+      secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
+
+      const mins = now.getMinutes();
+      const minsDegrees = ((mins / 60)* 360) + ((seconds/60)*6) + 90;
+      minsHand.style.transform = `rotate(${minsDegrees}deg)`;
+      
+      const hour = now.getHours();
+      const hourDegrees = ((hour / 12)* 360) + ((mins/60)*30)  + 90;
+      hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+    }
+
+
+    setInterval(setDate, 1000);
+
+    setDate();
+
+  </script>
+</body>
+</html>
